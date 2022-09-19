@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body id="body">
+    <span>Input your search word</span>
+    <input type="text" name="a" id="a">
+    <!-- <button id="'bin" onclick="getCatBrees()">Get Unsplash</button> -->
+    <button id="'bin2" onclick="getCatPictures(document.getElementById('a').value)">Get Unsplash images</button>
+    <br>
+    
+</body>
+    <!-- <select onchange="showBreedImage(value)" name="breed_selector" id="breed_selector">
+    </select>
+     -->
+    <!-- <div>
+    <a id="wiki_link" target="_blank"></a>
+    <div id="breed_json"></div>
+    </div>
+    
+    <div>
+    <img id="breed_image"></img>
+    </div> -->
+    <script>
+
+        const baseUrl = 'https://api.unsplash.com/search/photos?page=1&query=office&client_id=hs4FQk4_nyN0ZucYGCb_6ccjawJWObxegKQFDFQgM7U';
+        const baseUrl_p1= 'https://api.unsplash.com/search/photos?page=1&query=';
+        const baseUrl_p2= '&client_id=hs4FQk4_nyN0ZucYGCb_6ccjawJWObxegKQFDFQgM7U';
+        const baseUrl2 ='https://api.unsplash.com/photos/?client_id=hs4FQk4_nyN0ZucYGCb_6ccjawJWObxegKQFDFQgM7U';
+        const getCatBrees = async () =>{
+            const response=await fetch(`${baseUrl}`);
+
+            console.log (response);
+            const catBreedsNames= await response.json();
+            console.log (catBreedsNames)
+            console.log (catBreedsNames.results[0])
+
+        }
+
+        const getCatPictures = async (a)=> {
+            try{
+                console.log(a);
+                const combine1=baseUrl_p1+a+baseUrl_p2;
+                console.log(combine1);
+                const response =await fetch(`${combine1}`);
+
+                console.log('response',response);
+
+                const catPictures = await response.json();
+
+                catPictures.results.forEach(element => {
+                    const img= document.createElement('img');
+
+                    img.src =element.urls.regular;
+
+                    console.log(img.src);
+
+                    document.getElementById ('body').appendChild(img);
+                    
+                });
+
+            } catch(err){
+                console.error('Error is getCatPictures', err);
+            }
+        }
+
+
+    </script>
+
+</html>
